@@ -1,72 +1,102 @@
 import streamlit as st # web development
 import numpy as np # np mean, np random 
 import pandas as pd # read csv, df manipulation
+import pydeck as pdk
 import time # to simulate a real time data, time loop 
 import plotly.express as px # interactive charts 
 
-# read csv from a github repo
-df = pd.read_csv("https://raw.githubusercontent.com/sonriks6/streamlit/main/Wildfire_cleaned_dataset_2010_2015.csv")
+# Dataset we need to import
 
-df.head()
+DATA_URL = ("https://raw.githubusercontent.com/sonriks6/streamlit/main/Wildfire_cleaned_dataset_2010_2015.csv")
 
 st.set_page_config(
-    page_title = 'Wildfire Dashboard',
-    page_icon = '✅',
-    layout = 'wide'
+   page_title = 'Wildfire Dashboard',
+   page_icon = '✅',
+   layout = 'wide'
 )
 
 # dashboard title
 
 st.title("Wildfire Dashboard")
+st.markdown("This app analyzes US wildfires from 2010 to 2015")
 
-# top-level filters 
-
-# job_filter = st.selectbox("Select the Job", pd.unique(df['job']))
-
-
-# creating a single-element container.
-placeholder = st.empty()
-
-# dataframe filter 
-
-# df = df[df['job']==job_filter]
-
-# # near real-time / live feed simulation 
-
-# for seconds in range(200):
-# #while True: 
-    
-#     df['age_new'] = df['age'] * np.random.choice(range(1,5))
-#     df['balance_new'] = df['balance'] * np.random.choice(range(1,5))
-
-#     # creating KPIs 
-#     avg_age = np.mean(df['age_new']) 
-
-#     count_married = int(df[(df["marital"]=='married')]['marital'].count() + np.random.choice(range(1,30)))
-    
-#     balance = np.mean(df['balance_new'])
-
-#     with placeholder.container():
-#         # create three columns
-#         kpi1, kpi2, kpi3 = st.columns(3)
-
-#         # fill in those three columns with respective metrics or KPIs 
-#         kpi1.metric(label="Age ⏳", value=round(avg_age), delta= round(avg_age) - 10)
-#         kpi2.metric(label="Married Count 💍", value= int(count_married), delta= - 10 + count_married)
-#         kpi3.metric(label="A/C Balance ＄", value= f"$ {round(balance,2)} ", delta= - round(balance/count_married) * 100)
-
-#         # create two columns for charts 
-
-#         fig_col1, fig_col2 = st.columns(2)
-#         with fig_col1:
-#             st.markdown("### First Chart")
-#             fig = px.density_heatmap(data_frame=df, y = 'age_new', x = 'marital')
-#             st.write(fig)
-#         with fig_col2:
-#             st.markdown("### Second Chart")
-#             fig2 = px.histogram(data_frame = df, x = 'age_new')
-#             st.write(fig2)
-#         st.markdown("### Detailed Data View")
-#         st.dataframe(df)
-#         time.sleep(1)
-#     #placeholder.empty()
+@st.cache(persist = True)
+def load_data(nrows):
+      # parse date and time columns as date and time
+    data = pd.read_csv(DATA_URL, nrows = nrows, parse_dates = [['Date','Time']])
+    return data
+# load first 10000 rows
+data = load_data(10000)
+# Plot : 1
+# plot a streamlit map for accident locations.
+st.header("Where are the most people casualties in accidents in UK?")
+# plot the slider that selects number of person died
+casualties = st.slider("Number of persons died", 1, int(data["number_of_casualties"].max()))
+st.map(data.query("number_of_casualties >= @casualties")[["latitude", "longitude"]].dropna(how ="any"))
+ 
+# Plot : 2
+# plot a pydeck 3D map for the number of accident's happen between an hour interval
+st.header("How many accidents occur during a given time of day?")
+hour = st.slider("Hour to look at", 0, 23)
+original_data = data
+data = data[data['date / time'].dt.hour == hour]
+ 
+st.markdown("Vehicle collisions between % i:00 and % i:00" % (hour, (hour + 1) % 24))
+midpoint = (np.average(data["latitude"]), np.average(data["longitude"]))
+ 
+st.write(pdk.Deck(
+    map_style ="mapbox://styles / mapbox / light-v9",
+    initial_view_state ={
+      "latitude": midpoint[0],
+      "longitude": midpoint[1],
+      "zoom": 11,
+      "pitch": 50,
+    },
+    layers =[
+        pdk.Layer(
+        "HexagonLayer",
+        data = data[['date / time', 'latitude', 'longitude']],
+        get_position =["longitude", "latitude"],
+        auto_highlight = True,
+        radius = 100,
+        extruded = True,
+        pickable = True,
+        elevation_scale = 4,
+        elevation_range =[0, 1000],
+        ),
+    ],
+))
+ 
+# Plot : 3
+# plot a histogram for minute of the hour atwhich accident happen
+st.subheader("Breakdown by minute between % i:00 and % i:00" % (hour, (hour + 1) % 24))
+filtered = data[
+    (data['date / time'].dt.hour >= hour) & (data['date / time'].dt.hour < (hour + 1))
+]
+hist = np.histogram(filtered['date / time'].dt.minute, bins = 60, range =(0, 60))[0]
+chart_data = pd.DataFrame({"minute": range(60), "Accidents": hist})
+fig = px.bar(chart_data, x ='minute', y ='Accidents', hover_data =['minute', 'Accidents'], height = 400)
+st.write(fig)
+ 
+# The code below uses checkbox to show raw data
+st.header("Condition of Road at the time of Accidents")
+select = st.selectbox('Weather ', ['Dry', 'Wet / Damp', 'Frost / ice', 'Snow', 'Flood (Over 3cm of water)'])
+ 
+if select == 'Dry':
+    st.write(original_data[original_data['road_surface_conditions']=="Dry"][["weather_conditions", "light_conditions", "speed_limit", "number_of_casualties"]].sort_values(by =['number_of_casualties'], ascending = False).dropna(how ="any"))
+ 
+elif select == 'Wet / Damp':
+    st.write(original_data[original_data['road_surface_conditions']=="Wet / Damp"][["weather_conditions", "light_conditions", "speed_limit", "number_of_casualties"]].sort_values(by =['number_of_casualties'], ascending = False).dropna(how ="any"))
+elif select == 'Frost / ice':
+    st.write(original_data[original_data['road_surface_conditions']=="Frost / ice"][["weather_conditions", "light_conditions", "speed_limit", "number_of_casualties"]].sort_values(by =['number_of_casualties'], ascending = False).dropna(how ="any"))
+ 
+elif select == 'Snow':
+    st.write(original_data[original_data['road_surface_conditions']=="Snow"][["weather_conditions", "light_conditions", "speed_limit", "number_of_casualties"]].sort_values(by =['number_of_casualties'], ascending = False).dropna(how ="any"))
+ 
+else:
+    st.write(original_data[original_data['road_surface_conditions']=="Flood (Over 3cm of water)"][["weather_conditions", "light_conditions", "speed_limit", "number_of_casualties"]].sort_values(by =['number_of_casualties'], ascending = False).dropna(how ="any"))
+ 
+ 
+if st.checkbox("Show Raw Data", False):
+    st.subheader('Raw Data')
+    st.write(data)
