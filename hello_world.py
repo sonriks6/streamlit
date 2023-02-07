@@ -6,9 +6,6 @@ import time # to simulate a real time data, time loop
 import plotly.express as px # interactive charts 
 import pickle
 
-# Dataset we need to import
-DATA_URL = ("https://raw.githubusercontent.com/sonriks6/streamlit/main/Wildfire_cleaned_dataset_2010_2015.csv")
-
 st.set_page_config(
    page_title = 'Wildfire Dashboard',
    page_icon = ':-)',
@@ -54,7 +51,7 @@ def main():
     # the data required to make the prediction
     LATITUDE = st.text_input("LATITUDE", "38.5")
     LONGITUDE = st.text_input("LONGITUDE", "-120.1")
-    result =""
+    result ="?"
       
     # the below line ensures that when the button called 'Predict' is clicked, 
     # the prediction function defined above is called to make the prediction 
@@ -67,7 +64,7 @@ def main():
             result="accidental"
         else:
             result="malicious"
-    st.success('The output is {}'.format(result))
+    st.success('The cause is {}'.format(result))
      
 if __name__=='__main__':
     main()
@@ -77,23 +74,39 @@ if __name__=='__main__':
 st.title("Wildfire Dashboard DataViz")
 st.markdown("Here we show data insights collected from 2010 to 2015:")
 
-# @st.cache(persist = True)
-# def load_data():
-#    data = pd.read_csv(DATA_URL)
-#    return data
-
-# # Load entire dataset
-# data = load_data()
-
-# # Plot : 1
-# # plot a streamlit map for accident locations.
-# st.header("Move the sliders to visualize Fire Size per Year:")
-# # plot the slider that selects number of person died
-# year = st.slider("Year:", 2010, 2015)
-# fire_size =st.slider("Fire Size:", 1000, 10000, 5000, 100)
-# st.map(data.query("FIRE_YEAR == @year & FIRE_SIZE >= @fire_size")[["LATITUDE", "LONGITUDE"]].dropna(how ="any"))
+# Dataset we need to import
+DATA_URL = ("https://raw.githubusercontent.com/sonriks6/streamlit/main/Wildfire_cleaned_dataset_2010_2015.csv")
 
 
+@st.cache(persist = True)
+def load_data():
+   data = pd.read_csv(DATA_URL)
+   return data
+
+# Load entire dataset
+data = load_data()
+
+# Plot : 1
+# plot a streamlit map for accident locations.
+st.header("Move the sliders to visualize Fire Size per Year:")
+# plot the slider that selects number of person died
+year = st.slider("Year:", 2010, 2015)
+
+fire_size_start, fire_size_end = st.select_slider(
+    "Select FIRE CLASS:",
+    options=["A", "B", "C", "D", "E", "F", "G"],
+    value=("A", "G")
+)
+
+st.map(data.query("FIRE_YEAR == @year & (FIRE_SIZE_CLASS >= @fire_size_start & FIRE_SIZE_CLASS <= @fire_size_end")[["LATITUDE", "LONGITUDE"]].dropna(how ="any"))
+
+
+
+start_color, end_color = st.select_slider(
+    'Select a range of color wavelength',
+    options=['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'],
+    value=('red', 'blue'))
+st.write('You selected wavelengths between', start_color, 'and', end_color)
 
 
 # # Plot : 2
