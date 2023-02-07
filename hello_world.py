@@ -11,8 +11,8 @@ DATA_URL = ("https://raw.githubusercontent.com/sonriks6/streamlit/main/Wildfire_
 
 st.set_page_config(
    page_title = 'Wildfire Dashboard',
-   page_icon = '✅',
-   layout = 'wide'
+   page_icon = ':-)',
+   layout = 'centered'
 )
 
 # loading the trained model
@@ -28,20 +28,21 @@ def prediction(LATITUDE, LONGITUDE):
    
     prediction = classifier.predict(
         [[2015, 1, LATITUDE, LONGITUDE, 1, 100000, 36000, 20]])
-    print(prediction)
+    # print(prediction)
     return prediction
-      
-  
+
+
 # this is the main function in which we define our webpage 
 def main():
       # giving the webpage a title
-    st.title("WILDFIRE CAUSE PREDICTION")
+    st.title("Wildfire Machine Learning Model")
+    st.markdown("Here we predict fire cause from location:")
       
     # here we define some of the front end elements of the web page like 
     # the font and background color, the padding and the text to be displayed
     html_temp = """
     <div style ="background-color:coral;padding:13px">
-    <h1 style ="color:black;text-align:center;">Streamlit Iris Flower Classifier ML App </h1>
+    <h1 style ="color:black;text-align:center;">Machine Learning Model</h1>
     </div>
     """
       
@@ -60,6 +61,12 @@ def main():
     # and store it in the variable result
     if st.button("Predict"):
         result = prediction(LATITUDE, LONGITUDE)
+        if result==1:
+            result="natural"
+        elif result==2:
+            result="accidental"
+        else:
+            result="malicious"
     st.success('The output is {}'.format(result))
      
 if __name__=='__main__':
@@ -67,8 +74,8 @@ if __name__=='__main__':
 
 
 # Dashboard title
-st.title("Wildfire Dashboard")
-st.markdown("This app analyzes US wildfires from 2010 to 2015")
+st.title("Wildfire Dashboard DataViz")
+st.markdown("Here we show data insights collected from 2010 to 2015:")
 
 # @st.cache(persist = True)
 # def load_data():
