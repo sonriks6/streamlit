@@ -30,7 +30,7 @@ data = load_data()
 # plot a streamlit map for accident locations.
 st.header("Where are the most people casualties in accidents in UK?")
 # plot the slider that selects number of person died
-year = st.slider("Year:", 1, int(data["FIRE_YEAR"].max()))
+year = st.slider("Year:", 2010, 2015)
 st.map(data.query("DISCOVERY_DOY == @year")[["LATITUDE", "LONGITUDE"]].dropna(how ="any"))
  
 # # Plot : 2
