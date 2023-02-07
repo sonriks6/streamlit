@@ -28,10 +28,11 @@ data = load_data()
 
 # Plot : 1
 # plot a streamlit map for accident locations.
-st.header("Where are the most people casualties in accidents in UK?")
+st.header("Move the sliders to visualize Fire Sizer per Year:")
 # plot the slider that selects number of person died
 year = st.slider("Year:", 2010, 2015)
-st.map(data.query("FIRE_YEAR == @year")[["LATITUDE", "LONGITUDE"]].dropna(how ="any"))
+fire_size =st.slider("Fire Size:", 1000, int(data["FIRE_SIZE"].max()))
+st.map(data.query("FIRE_YEAR == @year && FIRE_SIZE >= @fire_size")[["LATITUDE", "LONGITUDE"]].dropna(how ="any"))
  
 # # Plot : 2
 # # plot a pydeck 3D map for the number of accident's happen between an hour interval
