@@ -31,7 +31,7 @@ data = load_data()
 st.header("Where are the most people casualties in accidents in UK?")
 # plot the slider that selects number of person died
 year = st.slider("Year:", 2010, 2015)
-st.map(data.query("DISCOVERY_DOY == @year")[["LATITUDE", "LONGITUDE"]].dropna(how ="any"))
+st.map(data.query("DISCOVERY_DOY >= @year")[["LATITUDE", "LONGITUDE"]].dropna(how ="any"))
  
 # # Plot : 2
 # # plot a pydeck 3D map for the number of accident's happen between an hour interval
