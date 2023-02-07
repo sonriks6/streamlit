@@ -28,10 +28,10 @@ data = load_data()
 
 # Plot : 1
 # plot a streamlit map for accident locations.
-st.header("Move the sliders to visualize Fire Sizer per Year:")
+st.header("Move the sliders to visualize Fire Size per Year:")
 # plot the slider that selects number of person died
 year = st.slider("Year:", 2010, 2015)
-fire_size =st.slider("Fire Size:", 1000, int(data["FIRE_SIZE"].max()))
+fire_size =st.slider("Fire Size:", 1000, 10000, 5000, 100)
 st.map(data.query("FIRE_YEAR == @year & FIRE_SIZE >= @fire_size")[["LATITUDE", "LONGITUDE"]].dropna(how ="any"))
  
 # # Plot : 2
