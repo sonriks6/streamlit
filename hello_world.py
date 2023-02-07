@@ -23,7 +23,7 @@ st.markdown("This app analyzes US wildfires from 2010 to 2015")
 @st.cache(persist = True)
 def load_data(nrows):
       # parse date and time columns as date and time
-    data = pd.read_csv(DATA_URL, nrows = nrows, parse_dates = [['Date','Time']])
+    data = pd.read_csv(DATA_URL)
     return data
 # load first 10000 rows
 data = load_data(10000)
