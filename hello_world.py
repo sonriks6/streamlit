@@ -24,10 +24,10 @@ def welcome():
   
 # defining the function which will make the prediction using 
 # the data which the user inputs
-def prediction(sepal_length, sepal_width, petal_length, petal_width):  
+def prediction(LATITUDE, LONGITUDE):  
    
     prediction = classifier.predict(
-        [[sepal_length, sepal_width, petal_length, petal_width]])
+        [[2015, 1, LATITUDE, LONGITUDE, 1, 100000, 36000, 20]])
     print(prediction)
     return prediction
       
@@ -35,12 +35,12 @@ def prediction(sepal_length, sepal_width, petal_length, petal_width):
 # this is the main function in which we define our webpage 
 def main():
       # giving the webpage a title
-    st.title("Iris Flower Prediction")
+    st.title("WILDFIRE CAUSE PREDICTION")
       
     # here we define some of the front end elements of the web page like 
     # the font and background color, the padding and the text to be displayed
     html_temp = """
-    <div style ="background-color:yellow;padding:13px">
+    <div style ="background-color:coral;padding:13px">
     <h1 style ="color:black;text-align:center;">Streamlit Iris Flower Classifier ML App </h1>
     </div>
     """
@@ -51,17 +51,15 @@ def main():
       
     # the following lines create text boxes in which the user can enter 
     # the data required to make the prediction
-    sepal_length = st.text_input("Sepal Length", "Type Here")
-    sepal_width = st.text_input("Sepal Width", "Type Here")
-    petal_length = st.text_input("Petal Length", "Type Here")
-    petal_width = st.text_input("Petal Width", "Type Here")
+    LATITUDE = st.text_input("LATITUDE", "38.5")
+    LONGITUDE = st.text_input("LONGITUDE", "-120.1")
     result =""
       
     # the below line ensures that when the button called 'Predict' is clicked, 
     # the prediction function defined above is called to make the prediction 
     # and store it in the variable result
     if st.button("Predict"):
-        result = prediction(sepal_length, sepal_width, petal_length, petal_width)
+        result = prediction(LATITUDE, LONGITUDE)
     st.success('The output is {}'.format(result))
      
 if __name__=='__main__':
