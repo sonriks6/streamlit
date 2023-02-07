@@ -6,7 +6,6 @@ import time # to simulate a real time data, time loop
 import plotly.express as px # interactive charts 
 
 # Dataset we need to import
-
 DATA_URL = ("https://raw.githubusercontent.com/sonriks6/streamlit/main/Wildfire_cleaned_dataset_2010_2015.csv")
 
 st.set_page_config(
@@ -15,8 +14,7 @@ st.set_page_config(
    layout = 'wide'
 )
 
-# dashboard title
-
+# Dashboard title
 st.title("Wildfire Dashboard")
 st.markdown("This app analyzes US wildfires from 2010 to 2015")
 
@@ -25,15 +23,15 @@ def load_data():
    data = pd.read_csv(DATA_URL)
    return data
 
-
+# Load entire dataset
 data = load_data()
 
 # Plot : 1
 # plot a streamlit map for accident locations.
 st.header("Where are the most people casualties in accidents in UK?")
 # plot the slider that selects number of person died
-casualties = st.slider("Number of persons died", 1, int(data["DISCOVERY_DOY"].max()))
-st.map(data.query("DISCOVERY_DOY >= @casualties")[["LATITUDE", "LONGITUDE"]].dropna(how ="any"))
+year = st.slider("Year:", 1, int(data["FIRE_YEAR"].max()))
+st.map(data.query("DISCOVERY_DOY = @year")[["LATITUDE", "LONGITUDE"]].dropna(how ="any"))
  
 # # Plot : 2
 # # plot a pydeck 3D map for the number of accident's happen between an hour interval
