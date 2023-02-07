@@ -21,7 +21,7 @@ st.title("Wildfire Dashboard")
 
 # top-level filters 
 
-job_filter = st.selectbox("Select the Job", pd.unique(df['job']))
+# job_filter = st.selectbox("Select the Job", pd.unique(df['job']))
 
 
 # creating a single-element container.
