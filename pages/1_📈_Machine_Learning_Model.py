@@ -1,5 +1,7 @@
 import streamlit as st
 import pickle
+import pandas as pd
+import numpy as np
 from datetime import datetime
 
 # loading the trained model
@@ -45,7 +47,7 @@ def main():
     with col1:
         LATITUDE = st.text_input("LATITUDE", "38.5")
         LONGITUDE = st.text_input("LONGITUDE", "-120.1")
-        PICK_DATE = st.date_input("Date:", min_value=datetime.date(1992, 1, 1), value=datetime.date.today())
+        PICK_DATE = st.date_input("Date:", value=datetime.date.today())
     
     with col2:
         FIRE_SIZE_CLASS = st.radio(
