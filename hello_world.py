@@ -95,4 +95,4 @@ fire_size_start, fire_size_end = st.select_slider(
     options=["A", "B", "C", "D", "E", "F", "G"],
     value=("A", "G")
 )
-st.map(data.query("FIRE_YEAR == @year & (FIRE_SIZE_CLASS >= @fire_size_start & FIRE_SIZE_CLASS <= @fire_size_end)")[["LATITUDE", "LONGITUDE"]].dropna(how ="any"))
+st.map(data.query("FIRE_YEAR == @year & (FIRE_SIZE_CLASS == @fire_size_start & FIRE_SIZE_CLASS == @fire_size_end)")[["LATITUDE", "LONGITUDE"]].dropna(how ="any"))
