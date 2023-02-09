@@ -4,6 +4,6 @@ In this project we deploy a machine learning model, already trained and uploaded
 
 Also added a parquet file with data already cleaned and compressed to show some visualizations.
 
-The Streamlit App was published in this URL: https://widfire.streamlit.app
+The Streamlit App was published in this URL: https://wildfire.streamlit.app/
 
 Thank you
