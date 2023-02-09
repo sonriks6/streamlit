@@ -75,12 +75,12 @@ st.title("Wildfire Dashboard DataViz")
 st.markdown("Here we show data insights collected from 2010 to 2015:")
 
 # Dataset we need to import
-DATA_URL = ("https://raw.githubusercontent.com/sonriks6/streamlit/main/Wildfire_cleaned_dataset_2010_2015.csv")
+DATA_URL = ("https://github.com/sonriks6/streamlit/blob/main/wildfire_compressed.parquet")
 
 
 @st.cache(persist = True)
 def load_data():
-   data = pd.read_csv(DATA_URL)
+   data = pd.read_parquet(DATA_URL)
    return data
 
 # Load entire dataset
