@@ -85,9 +85,9 @@ def load_data():
 # Load entire dataset
 data = load_data()
 
-# plot a streamlit map for accident locations.
+# plot a streamlit map
 st.header("Move the sliders to visualize Fire Size per Year:")
-# plot the slider that selects number of person died
+# plot the sliders
 year = st.slider("Year:", 1992, 2015)
 fire_class = st.selectbox(":fire:", {"A", "B", "C", "D", "E", "F", "G"})
 st.map(data.query("(FIRE_YEAR == @year) & (FIRE_SIZE_CLASS == @fire_class)")[["LATITUDE", "LONGITUDE"]].dropna(how ="any"))
