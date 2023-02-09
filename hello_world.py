@@ -8,7 +8,7 @@ import pickle
 
 st.set_page_config(
    page_title = 'Wildfire Dashboard',
-   page_icon = ':fire:',
+   page_icon = '🔥',
    layout = 'centered'
 )
 
@@ -89,9 +89,4 @@ data = load_data()
 st.header("Move the sliders to visualize Fire Size per Year:")
 # plot the slider that selects number of person died
 year = st.slider("Year:", 1992, 2015)
-# fire_size_start, fire_size_end = st.select_slider(
-#     "Select FIRE CLASS:",
-#     options=["A", "B", "C", "D", "E", "F", "G"],
-#     value=("A", "G")
-# )
 st.map(data.query("FIRE_YEAR == @year")[["LATITUDE", "LONGITUDE"]].dropna(how ="any"))
