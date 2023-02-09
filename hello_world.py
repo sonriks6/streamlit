@@ -63,7 +63,7 @@ def main():
             "Fire Size Class (in Acres):", 
             ("A - 0 to 0.25", "B - 0.26 to 9.9", "C - 10 to 99.9", "D - 100 to 299", "E - 300 to 999", "F - 1000 to 4999", "G - 5000+")
             )
-        st.caption("NWCG Standards")
+        st.caption("Source: NWCG Standards")
 
     result ="?"
       
@@ -77,8 +77,18 @@ def main():
             FIRE_SIZE_CLASS=0.1
         elif FIRE_SIZE_CLASS == "B - 0.26 to 9.9":
             FIRE_SIZE_CLASS=5
+        elif FIRE_SIZE_CLASS == "C - 10 to 99.9":
+            FIRE_SIZE_CLASS=50
+        elif FIRE_SIZE_CLASS == "D - 100 to 299":
+            FIRE_SIZE_CLASS=150
+        elif FIRE_SIZE_CLASS == "E - 300 to 999":
+            FIRE_SIZE_CLASS=500
+        elif FIRE_SIZE_CLASS == "F - 1000 to 4999":
+            FIRE_SIZE_CLASS=2500
+        elif FIRE_SIZE_CLASS == "G - 5000+":
+            FIRE_SIZE_CLASS=5000
         else:
-            FIRE_SIZE_CLASS=1000
+            FIRE_SIZE_CLASS=10000
 
         result = prediction(YEAR, DISCOVERY_DOY, LATITUDE, LONGITUDE, FIRE_SIZE_CLASS)
         if result==1:
