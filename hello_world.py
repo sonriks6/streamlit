@@ -1,9 +1,9 @@
 import numpy as np # np mean, np random 
 import pandas as pd # read csv, df manipulation
-import pydeck as pdk
+# import pydeck as pdk
 import streamlit as st # web development
 import time # to simulate a real time data, time loop 
-import plotly.express as px # interactive charts 
+# import plotly.express as px # interactive charts 
 import pickle
 
 st.set_page_config(
@@ -72,7 +72,7 @@ if __name__=='__main__':
 
 # Dashboard title
 st.title("Wildfire Dashboard DataViz")
-st.markdown("Here we show data insights collected from 2010 to 2015:")
+st.markdown("Here we show data insights collected from 1992 to 2015:")
 
 # Dataset we need to import
 DATA_URL = ("https://raw.githubusercontent.com/sonriks6/streamlit/main/wildfire_compressed.parquet")
@@ -86,8 +86,8 @@ def load_data():
 data = load_data()
 
 # plot a streamlit map
-st.header("Move the sliders to visualize Fire Size per Year:")
+st.header("Move the sliders to visualize fires per year and category [A - G]:")
 # plot the sliders
 year = st.slider("Year:", 1992, 2015)
-fire_class = st.selectbox(":fire:", {"A", "B", "C", "D", "E", "F", "G"})
+fire_class = st.selectbox(":fire:", pd.Series({"A", "B", "C", "D", "E", "F", "G"}))
 st.map(data.query("(FIRE_YEAR == @year) & (FIRE_SIZE_CLASS == @fire_class)")[["LATITUDE", "LONGITUDE"]].dropna(how ="any"))
