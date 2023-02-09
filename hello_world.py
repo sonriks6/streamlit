@@ -122,5 +122,7 @@ data = load_data()
 st.header("Move the sliders to visualize fires per year and category [A - G]:")
 # plot the sliders
 year = st.slider("Year:", 1992, 2015)
-fire_class = st.selectbox(":fire:", {"A", "B", "C", "D", "E", "F", "G"})
+fire_class_options = ["A", "B", "C", "D", "E", "F", "G"]
+default_option=fire_class_options.index("A")
+fire_class = st.selectbox(":fire:", options=fire_class_options, index=default_option)
 st.map(data.query("(FIRE_YEAR == @year) & (FIRE_SIZE_CLASS == @fire_class)")[["LATITUDE", "LONGITUDE"]].dropna(how ="any"))
