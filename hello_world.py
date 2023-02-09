@@ -22,10 +22,10 @@ def welcome():
   
 # defining the function which will make the prediction using 
 # the data which the user inputs
-def prediction(LATITUDE, LONGITUDE):  
+def prediction(YEAR, LATITUDE, LONGITUDE):  
    
     prediction = classifier.predict(
-        [[2015, 1, LATITUDE, LONGITUDE, 1, 100000, 36000, 20]])
+        [[YEAR, 1, LATITUDE, LONGITUDE, 1, 100000, 36000, 20]])
     # print(prediction)
     return prediction
 
@@ -59,7 +59,8 @@ def main():
     # the prediction function defined above is called to make the prediction 
     # and store it in the variable result
     if st.button("Predict"):
-        result = prediction(LATITUDE, LONGITUDE)
+        YEAR = PICK_DATE[0]
+        result = prediction(YEAR, LATITUDE, LONGITUDE)
         if result==1:
             result="natural"
         elif result==2:
