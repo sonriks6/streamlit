@@ -8,7 +8,7 @@ import pickle
 
 st.set_page_config(
    page_title = 'Wildfire Dashboard',
-   page_icon = ':-)',
+   page_icon = 'chart_with_upwards_trend',
    layout = 'centered'
 )
 
