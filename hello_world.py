@@ -5,6 +5,7 @@ import streamlit as st # web development
 import time # to simulate a real time data, time loop 
 # import plotly.express as px # interactive charts 
 import pickle
+import datetime
 
 st.set_page_config(
    page_title = 'Wildfire Dashboard',
@@ -51,6 +52,7 @@ def main():
     # the data required to make the prediction
     LATITUDE = st.text_input("LATITUDE", "38.5")
     LONGITUDE = st.text_input("LONGITUDE", "-120.1")
+    PICK_DATE = st.date_input("Date:", min_value=datetime.date(1992, 1, 1), value=datetime.date.today())
     result ="?"
       
     # the below line ensures that when the button called 'Predict' is clicked, 
