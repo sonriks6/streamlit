@@ -50,9 +50,17 @@ def main():
       
     # the following lines create text boxes in which the user can enter 
     # the data required to make the prediction
-    LATITUDE = st.text_input("LATITUDE", "38.5")
-    LONGITUDE = st.text_input("LONGITUDE", "-120.1")
-    PICK_DATE = st.date_input("Date:", min_value=datetime.date(1992, 1, 1), value=datetime.date.today())
+    
+    col1, col2 = st.columns(2)
+
+    with col1:
+        LATITUDE = st.text_input("LATITUDE", "38.5")
+        LONGITUDE = st.text_input("LONGITUDE", "-120.1")
+        PICK_DATE = st.date_input("Date:", min_value=datetime.date(1992, 1, 1), value=datetime.date.today())
+    
+    with col2:
+        FIRE_SIZE_CLASS = st.radio("Fire Size Class (in Acres):", ("A - 0 to 0.25", "B - 0.26 to 9.9", "C - etc", "D"))
+    
     result ="?"
       
     # the below line ensures that when the button called 'Predict' is clicked, 
