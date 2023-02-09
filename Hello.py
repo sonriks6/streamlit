@@ -9,7 +9,8 @@ st.title('Wildfire US')
 
 st.write(
     """
-    Lorem ipsum...
+    
+    
     """
 )
 
@@ -33,6 +34,13 @@ st.write(
     """
 )
 
+st.subheader('Data Insights')
+st.write(
+    """
+    Here we show main data insights we discovered in the exploratory analysis.
+    """
+)
+
 c1, c2, c3 = st.columns(3)
 with c1:
     st.info('**Data Analyst: CECILE SINNA**', icon="💡")
@@ -40,3 +48,5 @@ with c2:
     st.info('**Data Analyst: JEAN CHRISTOPHE THEAULT**', icon="💻")
 with c3:
     st.info('**Data Analyst: SANTIAGO RODRIGUEZ DIAZ**', icon="🧠")
+
+st.caption("This is part of the Project for DataScientest - Data Analyst")
