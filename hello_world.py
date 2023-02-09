@@ -22,10 +22,10 @@ def welcome():
   
 # defining the function which will make the prediction using 
 # the data which the user inputs
-def prediction(YEAR, LATITUDE, LONGITUDE):  
+def prediction(YEAR, DOY, LATITUDE, LONGITUDE):  
    
     prediction = classifier.predict(
-        [[YEAR, 1, LATITUDE, LONGITUDE, 1, 100000, 36000, 20]])
+        [[YEAR, DOY, LATITUDE, LONGITUDE, 1, 100000, 36000, 20]])
     # print(prediction)
     return prediction
 
@@ -60,7 +60,8 @@ def main():
     # and store it in the variable result
     if st.button("Predict"):
         YEAR = PICK_DATE.year
-        result = prediction(YEAR, LATITUDE, LONGITUDE)
+        DISCOVERY_DOY = PICK_DATE.timetuple().tm_yday
+        result = prediction(YEAR, DISCOVERY_DOY, LATITUDE, LONGITUDE)
         if result==1:
             result="natural"
         elif result==2:
