@@ -59,8 +59,12 @@ def main():
         PICK_DATE = st.date_input("Date:", min_value=datetime.date(1992, 1, 1), value=datetime.date.today())
     
     with col2:
-        FIRE_SIZE_CLASS = st.radio("Fire Size Class (in Acres):", ("A - 0 to 0.25", "B - 0.26 to 9.9", "C - etc", "D"))
-    
+        FIRE_SIZE_CLASS = st.radio(
+            "Fire Size Class (in Acres):", 
+            ("A - 0 to 0.25", "B - 0.26 to 9.9", "C - 10 to 99.9", "D - 100 to 299", "E - 300 to 999", "F - 1000 to 4999", "G - 5000+")
+            )
+        st.markdown("NWCG Standards")
+
     result ="?"
       
     # the below line ensures that when the button called 'Predict' is clicked, 
