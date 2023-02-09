@@ -22,10 +22,10 @@ def welcome():
   
 # defining the function which will make the prediction using 
 # the data which the user inputs
-def prediction(YEAR, DOY, LATITUDE, LONGITUDE):  
+def prediction(YEAR, DOY, LATITUDE, LONGITUDE, FIRE_SIZE):  
    
     prediction = classifier.predict(
-        [[YEAR, DOY, LATITUDE, LONGITUDE, 1, 100000, 36000, 20]])
+        [[YEAR, DOY, LATITUDE, LONGITUDE, 1, FIRE_SIZE, 36000, 20]])
     # print(prediction)
     return prediction
 
@@ -63,7 +63,7 @@ def main():
             "Fire Size Class (in Acres):", 
             ("A - 0 to 0.25", "B - 0.26 to 9.9", "C - 10 to 99.9", "D - 100 to 299", "E - 300 to 999", "F - 1000 to 4999", "G - 5000+")
             )
-        st.markdown("NWCG Standards")
+        st.caption("NWCG Standards")
 
     result ="?"
       
@@ -73,7 +73,14 @@ def main():
     if st.button("Predict"):
         YEAR = PICK_DATE.year
         DISCOVERY_DOY = PICK_DATE.timetuple().tm_yday
-        result = prediction(YEAR, DISCOVERY_DOY, LATITUDE, LONGITUDE)
+        if FIRE_SIZE_CLASS == "A - 0 to 0.25":
+            FIRE_SIZE_CLASS=0.1
+        elif FIRE_SIZE_CLASS == "B - 0.26 to 9.9":
+            FIRE_SIZE_CLASS=5
+        else:
+            FIRE_SIZE_CLASS=1000
+
+        result = prediction(YEAR, DISCOVERY_DOY, LATITUDE, LONGITUDE, FIRE_SIZE_CLASS)
         if result==1:
             result="natural"
         elif result==2:
