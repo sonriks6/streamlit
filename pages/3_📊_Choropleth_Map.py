@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 from urllib.request import urlopen
 import json
 with urlopen('https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json') as response:
@@ -10,8 +11,13 @@ st.title("Wildfire Dashboard DataViz")
 st.markdown("Here we show data insights collected from 1992 to 2015:")
 
 # Slider to select period of time
-year = st.slider("Year:", 1992, 2015, 2000, 1)
+# year = st.slider("Year:", 1992, 2015, 2000, 1)
 
+year_start, year_end = st.select_slider(
+    label="Select period of years:",
+    options=np.arange(1992,2016),
+    value=(1992,2015)
+)
 
 # Dataset we need to import
 DATA_URL = ("https://raw.githubusercontent.com/sonriks6/streamlit/main/wildfire_compressed.parquet")
@@ -27,7 +33,7 @@ df = load_data()
 # Properly format the FIPS code
 df["FIPS_COMPLETE"] = df.COUNTY_FIPS2.astype(str).str.zfill(5)
 
-df = df[df.FIRE_YEAR==year]
+df = df[(df.FIRE_YEAR==year_start) & (df.FIRE_YEAR<=year_end)]
 
 df_FIPS = df.groupby(["FIPS_COMPLETE"], as_index=False)["FIRE_SIZE"].count()
 
