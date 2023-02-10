@@ -12,7 +12,7 @@ st.markdown("Here we show data insights collected from 1992 to 2015:")
 # Dataset we need to import
 DATA_URL = ("https://raw.githubusercontent.com/sonriks6/streamlit/main/wildfire_compressed.parquet")
 
-@st.cache(persist = True)
+@st.cache(persist = True, allow_output_mutation=True)
 def load_data():
    data = pd.read_parquet(DATA_URL)
    return data
