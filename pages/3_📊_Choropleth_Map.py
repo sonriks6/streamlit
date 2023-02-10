@@ -33,7 +33,7 @@ df = load_data()
 # Properly format the FIPS code
 df["FIPS_COMPLETE"] = df.COUNTY_FIPS2.astype(str).str.zfill(5)
 
-df = df[(df.FIRE_YEAR==year_start) & (df.FIRE_YEAR<=year_end)]
+df = df[(df.FIRE_YEAR>=year_start) & (df.FIRE_YEAR<=year_end)]
 
 df_FIPS = df.groupby(["FIPS_COMPLETE"], as_index=False)["FIRE_SIZE"].count()
 
