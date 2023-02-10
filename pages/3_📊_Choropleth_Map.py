@@ -9,6 +9,10 @@ with urlopen('https://raw.githubusercontent.com/plotly/datasets/master/geojson-c
 st.title("Wildfire Dashboard DataViz")
 st.markdown("Here we show data insights collected from 1992 to 2015:")
 
+# Slider to select period of time
+year = st.slider("Year:", 1992, 2015, 2000, 1)
+
+
 # Dataset we need to import
 DATA_URL = ("https://raw.githubusercontent.com/sonriks6/streamlit/main/wildfire_compressed.parquet")
 
@@ -20,9 +24,12 @@ def load_data():
 # Load entire dataset
 df = load_data()
 
+# Properly format the FIPS code
 df["FIPS_COMPLETE"] = df.COUNTY_FIPS2.astype(str).str.zfill(5)
 
-df_FIPS = df.groupby(["FIPS_COMPLETE", "FIPS_NAME"], as_index=False)["FIRE_SIZE"].count()
+
+
+df_FIPS = df[df.FIRE_YEAR=="year"].groupby(["FIPS_COMPLETE"], as_index=False)["FIRE_SIZE"].count()
 
 import plotly.express as px
 

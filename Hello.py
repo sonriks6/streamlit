@@ -38,10 +38,14 @@ st.write(
     """
 )
 
-st.subheader('Data Insights')
+st.subheader('Choropleth Map')
 st.write(
     """
-    Here we show main data insights we discovered in the exploratory analysis.
+    Here we focus on County level of granularity with a mixed measure of FIRE COUNTS in a selected period of YEARS.
+    We use a choropleth map with a dynamic level of color as a function of the twice of average count of fires in selected period.
+
+    You can hover the mouse over the different counties to check the number of fires; there are counties with A LOT of fires over the time
+    of course with different causes and sizes.
     """
 )
 
