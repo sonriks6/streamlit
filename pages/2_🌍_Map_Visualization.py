@@ -17,10 +17,16 @@ def load_data():
 data = load_data()
 
 # plot a streamlit map
-st.header("Move the sliders to visualize fires per year and category [A - G]:")
+st.header("Move the sliders to visualize fires per year combined with category [A - G]:")
 # plot the sliders
-year = st.slider("Year:", 1992, 2015)
+# year = st.slider("Year:", 1992, 2015)
+year_start, year_end = st.select_slider(
+    label="Select period of years:",
+    options=np.arange(1992,2016),
+    value=(1992,2015)
+)
+
 fire_class_options = ["A", "B", "C", "D", "E", "F", "G"]
 default_option=fire_class_options.index("A")
 fire_class = st.selectbox(":fire:", options=fire_class_options, index=default_option)
-st.map(data.query("(FIRE_YEAR == @year) & (FIRE_SIZE_CLASS == @fire_class)")[["LATITUDE", "LONGITUDE"]].dropna(how ="any"))
+st.map(data.query("(FIRE_YEAR >= @year_start & FIRE_YEAR <= @year_end) & (FIRE_SIZE_CLASS == @fire_class)")[["LATITUDE", "LONGITUDE"]].dropna(how ="any"))
