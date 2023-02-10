@@ -46,6 +46,9 @@ st.write(
 
     You can hover the mouse over the different counties to check the number of fires; there are counties with A LOT of fires over the time
     of course with different causes and sizes.
+
+
+    
     """
 )
 
