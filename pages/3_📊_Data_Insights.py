@@ -38,4 +38,6 @@ fig = px.choropleth_mapbox(df_FIPS, geojson=counties, locations='FIPS_COMPLETE',
                               }
                           )
 fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-fig.show()
+# fig.show()
+
+st.plotly_chart(fig, use_container_width=True)
