@@ -13,13 +13,12 @@ st.write(
 st.subheader('FIRE PROGRESSION:')
 st.write(
     """
-    Wildfires in the USA are progressing over time (especially in California, Georgia, Texas) 
+
+    Wildfires in the USA are progressing over time (especially in California, Georgia and Texas) 
     as well as their size (Arizona).
     
-    
-    The fires are increasingly devastating in terms of area 
-    (class G is growing by 28% per year) and it is likely that with global warming and very dry
-    summers this number will increase (increase in natural causes of fires).
+    The fires are devastating in terms of area (class G is growing by 28% per year) and it is likely 
+    that with global warming and very dry summers this number will increase (growth in natural causes of fires).
 
     """
 )
@@ -27,8 +26,8 @@ st.subheader('HUMAN CAUSES:')
 st.write(
     """
 
-    Construction (e.g. CA) increasingly close to forests, combined with the fact that 
-    80% of the causes of fires are of human origin increases the risk. For human causes,
+    Construction (e.g. CA) is increasing close to the forests, that combined with the fact that 
+    80% of the causes of fires are of human origin leads to a higher the risk. For human causes,
     prevention remains a good way to reduce the number of fires.
 
     """
@@ -37,11 +36,13 @@ st.subheader("""WHAT WE'VE LEARNED:""")
 st.write(
     """
 
-    The project allowed us to apply all the technical skills acquired during the training
-    Python, Matplotlib, Seaborn for data exploration and transformation:
+    The project allowed us to apply all the technical skills acquired during the training such as:
     
-    Scikitlearn, Streamlit for Machine Learning.
-    PowerBI for analysis, dashboard and presentation of results.
+    - Python, Matplotlib, Seaborn for data exploration and transformation.
+    
+    - Scikitlearn, Streamlit for Machine Learning.
+    
+    - PowerBI for analysis, dashboard and presentation of results.
 
     All that remains is to apply this knowledge to our field of expertise!
    
