@@ -33,7 +33,7 @@ st.write(
 
     """
 )
-st.subheader('WHAT WE'VE LEARNED:')
+st.subheader("""WHAT WE'VE LEARNED:""")
 st.write(
     """
 
