@@ -10,6 +10,7 @@ st.write(
     
     """
 )
+st.subheader('FIRE PROGRESSION:')
 st.write(
     """
     Wildfires in the USA are progressing over time (especially in California, Georgia, Texas) 
@@ -22,6 +23,7 @@ st.write(
 
     """
 )
+st.subheader('HUMAN CAUSES:')
 st.write(
     """
 
@@ -31,18 +33,18 @@ st.write(
 
     """
 )
+st.subheader('WHAT WE'VE LEARNED:')
 st.write(
     """
 
     The project allowed us to apply all the technical skills acquired during the training
     Python, Matplotlib, Seaborn for data exploration and transformation:
     
-        Scikitlearn, Streamlit for Machine Learning.
-	    PowerBI for analysis, dashboard and presentation of results.
+    Scikitlearn, Streamlit for Machine Learning.
+    PowerBI for analysis, dashboard and presentation of results.
 
     All that remains is to apply this knowledge to our field of expertise!
    
-    
     
     """
 )
