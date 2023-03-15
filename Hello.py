@@ -52,12 +52,12 @@ st.write(
     """
 )
 
-c1, c2, c3 = st.columns(3)
-with c1:
-    st.info('**Data Analyst: CECILE SINNA**', icon="💡")
-with c2:
-    st.info('**Data Analyst: JEAN CHRISTOPHE THEAULT**', icon="💻")
-with c3:
-    st.info('**Data Analyst: SANTIAGO RODRIGUEZ DIAZ**', icon="🧠")
+# c1, c2, c3 = st.columns(3)
+# with c1:
+#     st.info('**Data Analyst: CECILE SINNA**', icon="💡")
+# with c2:
+#     st.info('**Data Analyst: JEAN CHRISTOPHE THEAULT**', icon="💻")
+# with c3:
+#     st.info('**Data Analyst: SANTIAGO RODRIGUEZ DIAZ**', icon="🧠")
 
-st.caption("This is part of the Project for DataScientest - Data Analyst")
+# st.caption("This is part of the Project for DataScientest - Data Analyst")
