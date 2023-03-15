@@ -60,4 +60,4 @@ st.write(
 # with c3:
 #     st.info('**Data Analyst: SANTIAGO RODRIGUEZ DIAZ**', icon="🧠")
 
-# st.caption("This is part of the Project for DataScientest - Data Analyst")
+st.caption("This is part of the Project for DataScientest - Data Analyst")

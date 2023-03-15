@@ -27,7 +27,7 @@ st.write(
     """
 
     Construction (e.g. CA) is increasing close to the forests, that combined with the fact that 
-    80% of the causes of fires are of human origin leads to a higher the risk. For human causes,
+    80% of the causes of fires are of human origin leads to a higher risk. For human causes,
     prevention remains a good way to reduce the number of fires.
 
     """
@@ -46,6 +46,13 @@ st.write(
 
     All that remains is to apply this knowledge to our field of expertise!
    
+    
+    """
+)
+
+st.write(
+    """
+    
     
     """
 )

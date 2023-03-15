@@ -17,7 +17,7 @@ def welcome():
 def prediction(YEAR, DOY, LATITUDE, LONGITUDE, FIRE_SIZE):  
    
     prediction = classifier.predict(
-        [[YEAR, DOY, LATITUDE, LONGITUDE, FIRE_SIZE, 100000, 36000, 20]])
+        [[YEAR, DOY, LATITUDE, LONGITUDE, FIRE_SIZE, 100000, 3000, 20]])
     # print(prediction)
     return prediction
 
