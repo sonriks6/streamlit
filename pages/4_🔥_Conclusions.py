@@ -20,18 +20,23 @@ st.write(
     The fires are devastating in terms of area (class G is growing year over year) and it is likely 
     that with global warming and very dry summers this number will keep increasing (growth in natural causes of fires).
 
-    """
-)
-st.subheader('HUMAN CAUSES:')
-st.write(
-    """
+    Seasonality, fire periods are longer, not only concentrated in summer, we have fires even on winter!.
 
-    Construction (e.g. CA) is increasing close to the forests, that combined with the fact that 
-    80% of the causes of fires are of human origin leads to a higher risk. For human causes,
-    prevention remains a good way to reduce the number of fires.
+    Human causes, are the main origin of wildfires, here revention remains a good way to reduce the number of fires.
+
+    Climate zones: Mediterratean (CA) and Subtropical (South East) are the most impacted by fires.
 
     """
 )
+# st.subheader('HUMAN CAUSES:')
+# st.write(
+#     """
+
+#     Human causes represent 80% of the causes of fires are of human origin leads to a higher risk. For human causes,
+#     prevention remains a good way to reduce the number of fires.
+
+#     """
+# )
 st.subheader("""WHAT WE'VE LEARNED:""")
 st.write(
     """
@@ -59,6 +64,8 @@ st.write(
     
     """
 )
+
+st.subheader("""-------------------------------------""")
 
 c1, c2, c3 = st.columns(3)
 with c1:
