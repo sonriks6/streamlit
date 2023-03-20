@@ -17,8 +17,8 @@ st.write(
     Wildfires in the USA are progressing over time (especially in California, Georgia and Texas) 
     as well as their size (Arizona).
     
-    The fires are devastating in terms of area (class G is growing by 28% per year) and it is likely 
-    that with global warming and very dry summers this number will increase (growth in natural causes of fires).
+    The fires are devastating in terms of area (class G is growing year over year) and it is likely 
+    that with global warming and very dry summers this number will keep increasing (growth in natural causes of fires).
 
     """
 )
@@ -44,15 +44,18 @@ st.write(
     
     - PowerBI for analysis, dashboard and presentation of results.
 
-    All that remains is to apply this knowledge to our field of expertise!
+    Aside the technical skills we also learned how to structure the analysis of an unknown domain, do the rearch and
+    complementary data collection. All that remains is to apply this knowledge to our field of expertise!
    
     
     """
 )
-
+st.subheader("""WHAT WE'D DO WITH MORE TIME:""")
 st.write(
     """
-    
+    We would complete our knowledge in this matter adding more features and extra data.
+    Add interesting new feature like an Fire Risk Estimator or compare with another country.    
+    We'd also try to get a robust analysis and conclusions.
     
     """
 )

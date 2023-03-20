@@ -52,6 +52,17 @@ st.write(
     """
 )
 
+st.subheader('Conclusions')
+st.write(
+    """
+    Some final words about this Project, what we've learned, what we'd do if we had more time and difficulties we found.
+
+    
+    THANK YOU!
+    
+    """
+)
+
 # c1, c2, c3 = st.columns(3)
 # with c1:
 #     st.info('**Data Analyst: CECILE SINNA**', icon="💡")
