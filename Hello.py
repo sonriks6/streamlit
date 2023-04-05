@@ -1,10 +1,9 @@
 import streamlit as st
-from PIL import Image
 
 # Config
 st.set_page_config(
-    page_title='Wildfire US', 
-    page_icon='https://raw.githubusercontent.com/sonriks6/streamlit/main/fire.png', 
+    page_title='Wildfire US',
+    page_icon='https://raw.githubusercontent.com/sonriks6/streamlit/main/fire.png',
     layout='wide'
 )
 
