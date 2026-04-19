@@ -22,7 +22,7 @@ year_start, year_end = st.select_slider(
 # Dataset we need to import
 DATA_URL = ("https://raw.githubusercontent.com/sonriks6/streamlit/main/wildfire_compressed.parquet")
 
-@st.cache(persist = True, allow_output_mutation=True)
+@st.cache_data
 def load_data():
    data = pd.read_parquet(DATA_URL)
    return data

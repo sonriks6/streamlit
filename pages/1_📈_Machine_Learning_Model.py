@@ -4,11 +4,16 @@ import pandas as pd
 import numpy as np
 import datetime
 import time
+import folium
+from streamlit_folium import st_folium
 
-# loading the trained model
-pickle_in = open('clf_rf.pkl', 'rb') 
-classifier = pickle.load(pickle_in)
- 
+@st.cache_resource
+def load_model():
+    with open('clf_rf.pkl', 'rb') as pickle_in:
+        return pickle.load(pickle_in)
+
+classifier = load_model()
+
 def welcome():
     return 'welcome all'
   
@@ -43,11 +48,41 @@ def main():
     # the following lines create text boxes in which the user can enter 
     # the data required to make the prediction
     
+    # Map for coordinate selection
+    st.write("### 📍 Select Location")
+    st.write("Click on the map below to select the fire location:")
+    
+    if 'selected_lat' not in st.session_state:
+        st.session_state.selected_lat = 38.5
+    if 'selected_lon' not in st.session_state:
+        st.session_state.selected_lon = -120.1
+
+    m = folium.Map(location=[39.8283, -98.5795], zoom_start=4)
+
+    folium.Marker(
+        [st.session_state.selected_lat, st.session_state.selected_lon],
+        popup="Selected Location",
+        icon=folium.Icon(color="red", icon="fire")
+    ).add_to(m)
+
+    map_data = st_folium(m, height=400, width=700, key="fire_map")
+
+    if map_data and map_data.get("last_clicked"):
+        clicked_lat = map_data["last_clicked"]["lat"]
+        clicked_lon = map_data["last_clicked"]["lng"]
+        if clicked_lat != st.session_state.selected_lat or clicked_lon != st.session_state.selected_lon:
+            st.session_state.selected_lat = clicked_lat
+            st.session_state.selected_lon = clicked_lon
+            st.rerun()
+
+    LATITUDE = st.session_state.selected_lat
+    LONGITUDE = st.session_state.selected_lon
+        
+    st.info(f"**Selected Coordinates:** Latitude {LATITUDE:.4f}, Longitude {LONGITUDE:.4f}")
+
     col1, col2 = st.columns(2)
 
     with col1:
-        LATITUDE = st.text_input("LATITUDE", "38.5")
-        LONGITUDE = st.text_input("LONGITUDE", "-120.1")
         PICK_DATE = st.date_input("Date:", min_value=datetime.date(1992, 1, 1), value=datetime.date.today())
     
     with col2:
@@ -82,7 +117,7 @@ def main():
         else:
             FIRE_SIZE_CLASS=10000
 
-        result = prediction(YEAR, DISCOVERY_DOY, LATITUDE, LONGITUDE, FIRE_SIZE_CLASS)
+        result = prediction(YEAR, DISCOVERY_DOY, float(LATITUDE), float(LONGITUDE), FIRE_SIZE_CLASS)
         if result==1:
             result="natural"
         elif result==2:
